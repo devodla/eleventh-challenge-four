@@ -34,21 +34,15 @@ class TransactionsRepository {
   }
 
   public getBalance(): Balance {
-    const incomeData = this.transactions.filter(
-      transaction => transaction.type === 'income',
-    );
-
-    const outcomeData = this.transactions.filter(
-      transaction => transaction.type === 'outcome',
-    );
-
-    const incomeSum = incomeData.reduce(
-      (sum: number, data: Transaction) => sum + data.value,
+    const incomeSum = this.transactions.reduce(
+      (sum: number, data: Transaction) =>
+        data.type === 'income' ? sum + data.value : sum,
       0,
     );
 
-    const outcomeSum = outcomeData.reduce(
-      (sum: number, data: Transaction) => sum + data.value,
+    const outcomeSum = this.transactions.reduce(
+      (sum: number, data: Transaction) =>
+        data.type === 'outcome' ? sum + data.value : sum,
       0,
     );
 
